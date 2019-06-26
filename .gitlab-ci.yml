@@ -19,7 +19,7 @@ unittest:
   stage: test
   allow_failure: true
   script:
-    - yarn test
+    - yarn unittest
 
 audit:
   <<: *run_in_docker
