@@ -120,55 +120,57 @@ Description 1</dd><dt data-i18n="dl0_dt2">Title 2</dt><dd data-i18n="dl0_dd3">De
       expect(keys).toEqual({});
     });
 
-//     it('handles block elements with mixed inline and block children', async () => {
-//       const { keys, template } = await parse(
-//         '<div>first level block <div>second level block</div> back to first level block</div>',
-//         positionalKeyNameStrategy,
-//       );
-//       const expectedTemplate = '<div data-i18n="div0">first level block \
-// <div data-i18n="div0_div1">second level block</div> back to first level block</div>';
+    /*
+    it('handles block elements with mixed inline and block children', async () => {
+      const { keys, template } = await parse(
+        '<div>first level block <div>second level block</div> back to first level block</div>',
+        positionalKeyNameStrategy,
+      );
+      const expectedTemplate = '<div data-i18n="div0">first level block \
+<div data-i18n="div0_div1">second level block</div> back to first level block</div>';
 
-//       expect(template).toEqual(expectedTemplate);
-//       expect(keys).toEqual({
-//         div0_text0: 'first level block',
-//         div0_div1_html: 'second level block',
-//         div0_text2: 'back to first level block',
-//       });
-//     });
+      expect(template).toEqual(expectedTemplate);
+      expect(keys).toEqual({
+        div0_text0: 'first level block',
+        div0_div1_html: 'second level block',
+        div0_text2: 'back to first level block',
+      });
+    });
 
-//     it('parses <blockquote>s with <ol> in it', async () => {
-//       const { keys, template } = await parse(
-//         '<blockquote><strong>Strong</strong> not so strong<br><ol><li>Item 1</li><li>Item 2</li></ol></blockquote>',
-//         positionalKeyNameStrategy,
-//       );
-//       const expectedTemplate = '<blockquote data-i18n="blockquote0_html0"><strong>Strong</strong> not so strong<br>\
-// <ol><li data-i18n="blockquote0_ol0_li0">Item 1</li><li data-i18n="blockquote0_ol0_li1">Item 2</li></ol>\
-// tailing test</blockquote>';
+    it('parses <blockquote>s with <ol> in it', async () => {
+      const { keys, template } = await parse(
+        '<blockquote><strong>Strong</strong> not so strong<br><ol><li>Item 1</li><li>Item 2</li></ol></blockquote>',
+        positionalKeyNameStrategy,
+      );
+      const expectedTemplate = '<blockquote data-i18n="blockquote0_html0"><strong>Strong</strong> not so strong<br>\
+<ol><li data-i18n="blockquote0_ol0_li0">Item 1</li><li data-i18n="blockquote0_ol0_li1">Item 2</li></ol>\
+tailing test</blockquote>';
 
-//       expect(template).toEqual(expectedTemplate);
-//       expect(keys).toEqual({
-//         blockquote0_html0: '<strong>Strong</strong> not so strong<br>',
-//         blockquote0_ol0_li0_html0: 'Item 1',
-//         blockquote0_ol0_li1: 'Item 2',
-//         blockquote0_html1: ' tailing text',
-//       });
-//     });
+      expect(template).toEqual(expectedTemplate);
+      expect(keys).toEqual({
+        blockquote0_html0: '<strong>Strong</strong> not so strong<br>',
+        blockquote0_ol0_li0_html0: 'Item 1',
+        blockquote0_ol0_li1: 'Item 2',
+        blockquote0_html1: ' tailing text',
+      });
+    });
 
-//     it('parses <img>s in <p>', async () => {
-//       const { keys, template } = await parse(
-//         '<p><img src="https://help.one.com/hc/article_attachments/360001125925/backup-02-select-date.png"\
-//  alt="backup-02-select-date.png"/></p>',
-//         positionalKeyNameStrategy,
-//       );
-//       const expectedTemplate = '<p><img\
-//  src="https://help.one.com/hc/article_attachments/360001125925/backup-02-select-date.png"\
-//  alt="backup-02-select-date.png" data-i18n="p0_img0"></p>';
+    it('parses <img>s in <p>', async () => {
+      const { keys, template } = await parse(
+        '<p><img src="https://help.one.com/hc/article_attachments/360001125925/backup-02-select-date.png"\
+ alt="backup-02-select-date.png"/></p>',
+        positionalKeyNameStrategy,
+      );
+      const expectedTemplate = '<p><img\
+ src="https://help.one.com/hc/article_attachments/360001125925/backup-02-select-date.png"\
+ alt="backup-02-select-date.png" data-i18n="p0_img0"></p>';
 
-//       expect(template).toEqual(expectedTemplate);
-//       expect(keys).toEqual({
-//         p0_img0_src: 'https://help.one.com/hc/article_attachments/360001125925/backup-02-select-date.png',
-//       });
-//     });
+      expect(template).toEqual(expectedTemplate);
+      expect(keys).toEqual({
+        p0_img0_src: 'https://help.one.com/hc/article_attachments/360001125925/backup-02-select-date.png',
+      });
+    });
+    */
 
     it('findes iframes and a src attribute', async () => {
       const { keys, template } = await parse(
