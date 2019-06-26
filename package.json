@@ -1,0 +1,26 @@
+{
+  "name": "data-i18n-parser",
+  "version": "0.9.9",
+  "main": "src/index.js",
+  "scripts": {
+    "audit": "snyk test",
+    "coverage": "jest --collectCoverageFrom=src/**.js --coverage src",
+    "lint": "eslint src",
+    "test": "yarn audit && yarn unittest",
+    "unittest": "jest src"
+  },
+  "repository": "https://gitlab.one.com/incubator/data-i18n-attr-parser",
+  "author": "Jesper Birkestrøm",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^15.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.7.1",
+    "jest": "^24.8.0",
+    "snyk": "^1.184.0"
+  }
+}

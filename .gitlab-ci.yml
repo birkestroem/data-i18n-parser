@@ -1,0 +1,36 @@
+image: docker
+
+.run_in_docker: &run_in_docker
+  image: node:10.15.1-alpine
+  tags:
+     - docker
+  before_script:
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+    - yarn
+
+stages:
+  - test
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+unittest:
+  <<: *run_in_docker
+  stage: test
+  allow_failure: true
+  script:
+    - yarn test
+
+audit:
+  <<: *run_in_docker
+  stage: test
+  script:
+    - yarn snyk auth ${SNYK_TOKEN}
+    - yarn snyk test
+
+lint:
+  <<: *run_in_docker
+  stage: test
+  allow_failure: true
+  script:
+    - yarn lint
