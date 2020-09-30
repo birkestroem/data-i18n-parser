@@ -112,6 +112,22 @@ Description 1</dd><dt data-i18n="dl0_dt2">Title 2</dt><dd data-i18n="dl0_dd3">De
       });
     });
 
+    it('skips extracts src for single sibling image if asked to', async () => {
+      const { keys, template } = await parse(
+        '<dd><img src="http://www.one.com/logo.png"></dd>',
+        positionalKeyNameStrategy,
+        {
+          parse: {
+            images: false,
+          },
+        },
+      );
+      const expectedTemplate = '<dd><img src="http://www.one.com/logo.png"></dd>';
+
+      expect(template).toEqual(expectedTemplate);
+      expect(keys).toEqual({});
+    });
+
     it('does not extract block elements that are empty/has no children', async () => {
       const { keys, template } = await parse('<hr>', positionalKeyNameStrategy);
       const expectedTemplate = '<hr>';

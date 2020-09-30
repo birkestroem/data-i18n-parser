@@ -205,13 +205,19 @@ const parseBlocks = (nodes, keys, keyNameStrategyFn, strategyOptions) => {
   }
 };
 
-const parse = async (html, keyNameStrategyFn = randomKeyNameStrategy, strategyOptions = {}) => {
+const parse = async (html, keyNameStrategyFn = randomKeyNameStrategy, strategyOptions = {
+  parse: {
+    images: true,
+  },
+}) => {
   const dom = new JSDOM(`<body>${html}</body>`);
   const { window: { document } } = dom;
 
   const keys = {};
   parseAnchors(document.querySelectorAll('a[href]'), keys, keyNameStrategyFn, strategyOptions);
-  parseImg(document.querySelectorAll('img[src]'), keys, keyNameStrategyFn, strategyOptions);
+  if (strategyOptions.parse.images === true) {
+    parseImg(document.querySelectorAll('img[src]'), keys, keyNameStrategyFn, strategyOptions);
+  }
   parseIframe(document.querySelectorAll('iframe[src]'), keys, keyNameStrategyFn, strategyOptions);
 
   parseBlocks(document.querySelectorAll([...blockElements].join(',')), keys, keyNameStrategyFn, strategyOptions);
