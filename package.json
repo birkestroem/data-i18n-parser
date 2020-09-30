@@ -13,14 +13,14 @@
   "author": "Jesper Birkestrøm",
   "license": "MIT",
   "dependencies": {
-    "jsdom": "^15.1.1"
+    "jsdom": "^16.4.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.7.1",
-    "jest": "^24.8.0",
-    "snyk": "^1.184.0"
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "jest": "^26.4.2",
+    "snyk": "^1.404.0"
   }
 }

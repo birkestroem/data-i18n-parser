@@ -1,7 +1,7 @@
 image: docker
 
 .run_in_docker: &run_in_docker
-  image: node:10.15.1-alpine
+  image: node:12.18.4-alpine
   tags:
      - docker
   before_script:
@@ -25,8 +25,7 @@ audit:
   <<: *run_in_docker
   stage: test
   script:
-    - yarn snyk auth ${SNYK_TOKEN}
-    - yarn snyk test
+    - yarn audit
 
 lint:
   <<: *run_in_docker
