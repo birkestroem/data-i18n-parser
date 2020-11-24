@@ -3,6 +3,8 @@ const {
   render,
   positionalKeyNameStrategy,
   randomKeyNameStrategy,
+  renameKeys,
+  strategyConverter,
 } = require('./index');
 
 describe('template service', () => {
@@ -309,23 +311,53 @@ src="http://help.one.com"></iframe>';
       expect(html).toEqual(expectedHtml);
     });
 
-    it('generates random keys', async () => {
-      const { keys, template } = await parse('<p>Give me a random id</p>', randomKeyNameStrategy);
-      const objKeys = Object.keys(keys);
-      const valuesKeys = Object.values(keys);
-
-      expect(objKeys.length).toEqual(1);
-      expect(objKeys[0]).toMatch(/\w{10}_html/)
-      expect(valuesKeys).toEqual(['Give me a random id']);
-    });
-
     it('skips images with adjacent text', async () => {
-      const { keys, template } = await parse('<p><img src="https://www.one.com/logo.png"/> we belong together</p>', positionalKeyNameStrategy);
+      const html = '<p><img src="https://www.one.com/logo.png"/> we belong together</p>';
+      const { keys, template } = await parse(html, positionalKeyNameStrategy);
       const expectedHtml = '<p data-i18n="p0"><img src="https://www.one.com/logo.png"> we belong together</p>';
 
       expect(template).toEqual(expectedHtml);
       expect(keys).toEqual({
         p0_html: '<img src="https://www.one.com/logo.png"> we belong together',
+      });
+    });
+  });
+
+  describe('utils', () => {
+    it('generates random keys', async () => {
+      const { keys } = await parse('<p>Give me a random id</p>', randomKeyNameStrategy);
+      const objKeys = Object.keys(keys);
+      const valuesKeys = Object.values(keys);
+
+      expect(objKeys.length).toEqual(1);
+      expect(objKeys[0]).toMatch(/\w{10}_html/);
+      expect(valuesKeys).toEqual(['Give me a random id']);
+    });
+
+    it('can rename keys', async () => {
+      const renames = {
+        p0: 'my-p0',
+      };
+      const template = await renameKeys('<p data-i18n="p0">My test in a block element</p>', renames);
+      const expectedTemplate = '<p data-i18n="my-p0">My test in a block element</p>';
+
+      expect(template).toEqual(expectedTemplate);
+    });
+
+    it('can convert key name strategy', async () => {
+      const keys = {
+        jCEmGwvd8c_html: 'Some content',
+      };
+      const template = '<p data-i18n="jCEmGwvd8c">Some content</p>';
+      const {
+        keys: convertedKeys,
+        template: convertedTemplated,
+      } = await strategyConverter(keys, template, positionalKeyNameStrategy);
+
+      const expectedHtml = '<p data-i18n="p0">Some content</p>';
+      expect(convertedTemplated).toEqual(expectedHtml);
+      expect(convertedKeys).toEqual({
+        p0_html: 'Some content',
       });
     });
   });
