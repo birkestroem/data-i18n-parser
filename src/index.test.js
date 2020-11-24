@@ -1,4 +1,9 @@
-const { parse, render, positionalKeyNameStrategy } = require('./index');
+const {
+  parse,
+  render,
+  positionalKeyNameStrategy,
+  randomKeyNameStrategy,
+} = require('./index');
 
 describe('template service', () => {
   describe('parse', () => {
@@ -10,6 +15,14 @@ describe('template service', () => {
       expect(keys).toEqual({
         p0_html: 'My test in a block element',
       });
+    });
+
+    it('detects and ignores empty text nodes', async () => {
+      const { keys, template } = await parse('<p> </p>', positionalKeyNameStrategy);
+      const expectedTemplate = '<p> </p>';
+
+      expect(template).toEqual(expectedTemplate);
+      expect(keys).toEqual({});
     });
 
     it('extracts images src attributes', async () => {
@@ -294,6 +307,16 @@ tailing test</blockquote>';
 src="http://help.one.com"></iframe>';
 
       expect(html).toEqual(expectedHtml);
+    });
+
+    it('generates random keys', async () => {
+      const { keys, template } = await parse('<p>Give me a random id</p>', randomKeyNameStrategy);
+      const objKeys = Object.keys(keys);
+      const valuesKeys = Object.values(keys);
+
+      expect(objKeys.length).toEqual(1);
+      expect(objKeys[0]).toMatch(/\w{10}_html/)
+      expect(valuesKeys).toEqual(['Give me a random id']);
     });
   });
 });
