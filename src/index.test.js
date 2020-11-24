@@ -346,18 +346,36 @@ src="http://help.one.com"></iframe>';
 
     it('can convert key name strategy', async () => {
       const keys = {
-        jCEmGwvd8c_html: 'Some content',
+        a_html: 'Some content',
+        b_href: 'https://www.one.com',
+        b_html: 'one.com',
+        c_src: 'https://www.one.com',
+        d_src: 'https://www.one.com/logo.png',
       };
-      const template = '<p data-i18n="jCEmGwvd8c">Some content</p>';
+      const template = `<div>
+  <p data-i18n="a">Some content</p>
+  <a data-i18n="b" href="https://www.one.com">one.com</a>
+  <iframe data-i18n="c" src="https://www.one.com"></iframe>
+  <p><img data-i18n="d" src="https://www.one.com/logo.png"></p>
+</div>`;
       const {
         keys: convertedKeys,
         template: convertedTemplated,
       } = await strategyConverter(keys, template, positionalKeyNameStrategy);
 
-      const expectedHtml = '<p data-i18n="p0">Some content</p>';
+      const expectedHtml = `<div>
+  <p data-i18n="div0_p1">Some content</p>
+  <a data-i18n="div0_a3" href="https://www.one.com">one.com</a>
+  <iframe data-i18n="div0_iframe5" src="https://www.one.com"></iframe>
+  <p><img data-i18n="div0_p7_img0" src="https://www.one.com/logo.png"></p>
+</div>`;
       expect(convertedTemplated).toEqual(expectedHtml);
       expect(convertedKeys).toEqual({
-        p0_html: 'Some content',
+        div0_a3_href: 'https://www.one.com',
+        div0_a3_html: 'one.com',
+        div0_iframe5_src: 'https://www.one.com',
+        div0_p1_html: 'Some content',
+        div0_p7_img0_src: 'https://www.one.com/logo.png',
       });
     });
   });
