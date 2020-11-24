@@ -318,5 +318,15 @@ src="http://help.one.com"></iframe>';
       expect(objKeys[0]).toMatch(/\w{10}_html/)
       expect(valuesKeys).toEqual(['Give me a random id']);
     });
+
+    it('skips images with adjacent text', async () => {
+      const { keys, template } = await parse('<p><img src="https://www.one.com/logo.png"/> we belong together</p>', positionalKeyNameStrategy);
+      const expectedHtml = '<p data-i18n="p0"><img src="https://www.one.com/logo.png"> we belong together</p>';
+
+      expect(template).toEqual(expectedHtml);
+      expect(keys).toEqual({
+        p0_html: '<img src="https://www.one.com/logo.png"> we belong together',
+      });
+    });
   });
 });
