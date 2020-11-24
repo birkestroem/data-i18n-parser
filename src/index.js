@@ -51,7 +51,7 @@ const parentNodes = (node) => {
   return parentElements;
 };
 
-const isOnlySibling = node => node.nextSibling === null && node.previousSibling === null;
+const isOnlySibling = (node) => node.nextSibling === null && node.previousSibling === null;
 
 const positionalKeyNameStrategy = (node) => {
   const parents = parentNodes(node).slice(2);
