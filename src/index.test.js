@@ -158,10 +158,10 @@ Description 1</dd><dt data-i18n="dl0_dt2">Title 2</dt><dd data-i18n="dl0_dd3">De
         '<blockquote><strong>Strong</strong> not so strong<br><ol><li>Item 1</li><li>Item 2</li></ol></blockquote>',
         positionalKeyNameStrategy,
       );
+
       const expectedTemplate = '<blockquote data-i18n="blockquote0_html0"><strong>Strong</strong> not so strong<br>\
 <ol><li data-i18n="blockquote0_ol0_li0">Item 1</li><li data-i18n="blockquote0_ol0_li1">Item 2</li></ol>\
 tailing test</blockquote>';
-
       expect(template).toEqual(expectedTemplate);
       expect(keys).toEqual({
         blockquote0_html0: '<strong>Strong</strong> not so strong<br>',
@@ -169,6 +169,18 @@ tailing test</blockquote>';
         blockquote0_ol0_li1: 'Item 2',
         blockquote0_html1: ' tailing text',
       });
+
+//       // TODO: Maybe this is more what we want
+
+//       const expectedTemplate = '<blockquote data-i18n="blockquote0_html0"><strong>Strong</strong> not so strong<br>\
+// <ol><li data-i18n="blockquote0_ol0_li0">Item 1</li><li data-i18n="blockquote0_ol0_li1">Item 2</li></ol>\
+// tailing test</blockquote>';
+//       expect(template).toEqual(expectedTemplate);
+//       expect(keys).toEqual({
+//         blockquote0_html0: '<strong>Strong</strong> not so strong<br>{#blockquote0_ol0_li1#} tailing text',
+//         blockquote0_ol0_li0_html0: 'Item 1',
+//         blockquote0_ol0_li1: 'Item 2',
+//       });
     });
 
     it('parses <img>s in <p>', async () => {
